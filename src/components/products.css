@@ -1,0 +1,36 @@
+.Product{
+    border-radius: 10px;
+    border: 1px solid #000000;
+    padding: 8px 0px;
+    width: 300px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #e0e0e0;
+}
+
+.Product__title{
+    text-align: center;
+    font-size: 26px;
+}
+
+.Product__price{
+    font-size: 18px;
+    color: black;
+    padding: 6px;
+    padding-left: 20px;
+    background-color: #fff;
+}
+
+.Product__description{
+    padding: 19px;
+    overflow: hidden;
+}
+
+.sceleton{
+    width: 300px;
+    height: 250px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+}

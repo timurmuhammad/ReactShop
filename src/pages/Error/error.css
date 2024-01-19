@@ -1,0 +1,28 @@
+
+.error{
+    margin-top: 100px;
+}
+.error__title{
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #f84147;
+}
+.error__not-found{
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+.error__details{
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+.error__button{
+    color: #fff;
+    background-color: #00a046;
+    font-size: 16px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    padding: 0 14px 0 14px;
+    border-radius: 8px;
+}

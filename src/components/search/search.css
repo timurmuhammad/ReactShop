@@ -1,0 +1,104 @@
+.search{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search__body{
+    height: 34px;
+    width: 300px;
+    border-radius: 17px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.search__list{
+    /*padding-bottom: 15px;*/
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    top: 50%;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 0 0 22px 22px;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0px 0px 12px #acacac;
+    transition: 0.2s;
+}
+.search__list._active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.search__item{
+    display: block;
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
+}
+.search__item:first-child{
+    margin-top: 20px;
+}
+.search__item:last-child{
+    margin-bottom: 15px;
+}
+.search__item:hover{
+    background-color: #dfddda;
+}
+
+.search__input{
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 60px 0 20px;
+    font-size: 16px;
+}
+.search__cleare{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    right: 42px;
+    cursor: pointer;
+}
+.search__cleare:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0px, -50%) rotate(-45deg);
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+}
+
+.search__cleare:before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0px, -50%) rotate(45deg);
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+}
+
+.search__go-icon{
+    height: 100%;
+    width: 34px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    transform: scale(-1, 1);
+    background-image: url('../../images/search.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
