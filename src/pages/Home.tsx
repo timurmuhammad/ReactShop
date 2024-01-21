@@ -3,11 +3,12 @@ import { useSearchParams } from 'react-router-dom'
 
 import { Products, Sceleton } from '../components/products'
 import { Product } from '../components/types/productType'
-import { SortType, sortDefault } from '../components/types/sortedType'
 import { Sort } from '../components/sort'
 import { Pagination } from '../components/pagination'
 import { SizeFilter } from '../components/sizeFilter/index'
 import './Cart.css'
+import { sortFilter } from '../components/sort/sortFilter'
+import { searchFilter } from '../components/search/searchFilter'
 
 type Props = {
     applyValueSearch: string
@@ -16,13 +17,12 @@ type Props = {
 
 export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
     const [isLoading, setIsLoading] = useState(true)
-    const [goods, setGoods] = useState([])
+    const [goods, setGoods] = useState<Product[]>([])
     const [currentPage, setCurrentPage] = useState(1)
     const [getJson, setGetJson] = useState([])
+
     const getJsonRef = useRef(false)
-
     const [ searchParams, setSearchParams ] = useSearchParams()
-
     const limitPage = 8
 
     //https://653537a0c620ba9358ec45f8.mockapi.io/items
@@ -33,30 +33,15 @@ export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
         .then((json) => {
             setGetJson(json)
             
-            let filter = []
+            let filter: Product[] = []
             const query = searchParams.get('search') || ''
-            const sortKey = searchParams.get('sort') || ''
-            const sortValue = SortType[sortKey as keyof typeof SortType] || sortDefault
 
             if (query && query.length > 0) {
-                filter = json.filter((item: Product) => (
-                    item.name.toLowerCase().startsWith(query.toLowerCase())
-                ))
+                filter = searchFilter(json, query)
             }
-            const filterGoods = filter.length > 0 ? filter : json
 
-            const sortGoods = filterGoods.sort((a: Product, b: Product) => {
-                switch (sortValue) {
-                    case SortType.expensive:
-                        return a.id - b.id
-                    case SortType.cheap:
-                        return b.id - a.id
-                    case SortType.rating:
-                        return a.name.localeCompare(b.name)
-                    default:
-                        return 0
-                }
-            })
+            const filterGoods = filter.length > 0 ? filter : json
+            const sortGoods = sortFilter(filterGoods, searchParams)
             setGoods(sortGoods)
             setIsLoading(false)
         })
@@ -64,9 +49,7 @@ export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
 
     useEffect(() => {
         if (getJsonRef.current) {
-            const filterSearch = applyValueSearch && getJson.filter((item: Product) => (
-            item.name.toLowerCase().startsWith(applyValueSearch.toLowerCase())
-            ))
+            const filterSearch = applyValueSearch && searchFilter(getJson, applyValueSearch)
             setItemsSearch(filterSearch || [])
         }
         getJsonRef.current = true
