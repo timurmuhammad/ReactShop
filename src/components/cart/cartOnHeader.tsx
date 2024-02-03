@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 
-import {removeToCart } from '../redux/slices/cartSlice'
-import { Rootstate } from '../redux/store'
+import {removeToCart } from '../../redux/slices/cartSlice'
+import { Rootstate } from '../../redux/store'
 import './cart.css'
 
 export const CartOnHeader = () => {

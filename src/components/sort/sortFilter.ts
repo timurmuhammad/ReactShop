@@ -1,11 +1,11 @@
 import { SortType, sortDefault } from "../types/sortedType";
-import { Product } from "../types/productType";
+import { ProductType } from "../types/productType";
 
-export function sortFilter(goods: Product[], params: URLSearchParams) {
+export function sortFilter(goods: ProductType[], params: URLSearchParams) {
     const sortKey = params.get('sort') || ''
     const sortValue = SortType[sortKey as keyof typeof SortType] || sortDefault
     
-    const sortGoods = goods.sort((a: Product, b: Product) => {
+    const sortGoods = goods.sort((a: ProductType, b: ProductType) => {
         switch (sortValue) {
             case SortType.expensive:
                 return a.id - b.id

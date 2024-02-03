@@ -5,8 +5,13 @@ type Params = {
 
 export function actionSearhParams(params: Params, search?: string | URLSearchParams) {
     const newParams = new URLSearchParams(search)
+    let notifiedByPage = false
 
     for (const [ key, value ] of Object.entries(params)) {
+        if (key === 'page') {
+            notifiedByPage = true
+        }
+
         if (value === null) {
             newParams.delete(key)
         } else if (Array.isArray(value)) {
@@ -16,6 +21,12 @@ export function actionSearhParams(params: Params, search?: string | URLSearchPar
             newParams.set(key, value.toString())
         }
     }
+
+    if (!notifiedByPage) {
+        newParams.delete('page')
+    }
+
+    //console.log(newParams)
 
     return newParams
 }

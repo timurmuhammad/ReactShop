@@ -2,14 +2,14 @@ import { useRef, useState, useCallback, memo } from 'react'
 import { Link } from 'react-router-dom'
 
 import './search.css'
-import { Product } from '../types/productType'
-import { useClickOutside } from '../../utils/onClickOutside'
+import { ProductType } from '../types/productType'
+import { useClickOutside } from '../../hooks/onClickOutside'
 import { debounce } from '../../utils/debounce'
 import { actionSearhParams } from '../../utils/actionSearhParams'
 
 type Props = {
     applyOnSearchValue: (valueSearch: string) => void
-    querySearch: Product[]
+    querySearch: ProductType[]
     params: URLSearchParams
     setParams: (params: URLSearchParams) => void
 }

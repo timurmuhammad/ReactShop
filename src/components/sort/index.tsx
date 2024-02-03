@@ -2,7 +2,7 @@ import { useState, useRef, memo } from 'react'
 
 import './sort.css'
 import { SortType, sortDefault } from '../types/sortedType'
-import { useClickOutside } from '../../utils/onClickOutside'
+import { useClickOutside } from '../../hooks/onClickOutside'
 import { actionSearhParams } from '../../utils/actionSearhParams'
 
 type Props = {

@@ -1,30 +1,34 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { Products, Sceleton } from '../components/products'
-import { Product } from '../components/types/productType'
+import './pages.css'
+import { Product, Sceleton } from '../components/product/product'
+import { ProductType } from '../components/types/productType'
 import { Sort } from '../components/sort'
 import { Pagination } from '../components/pagination'
 import { SizeFilter } from '../components/sizeFilter/index'
-import './Cart.css'
 import { sortFilter } from '../components/sort/sortFilter'
 import { searchFilter } from '../components/search/searchFilter'
+import { Footer } from '../components/footer'
+import { calcPagination } from '../utils/calcPagination'
 
 type Props = {
     applyValueSearch: string
-    setItemsSearch: (value: Product[]) => void
+    setItemsSearch: (value: ProductType[]) => void
 }
 
 export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
     const [isLoading, setIsLoading] = useState(true)
-    const [goods, setGoods] = useState<Product[]>([])
-    const [currentPage, setCurrentPage] = useState(1)
+    const [goods, setGoods] = useState<ProductType[]>([])
     const [getJson, setGetJson] = useState([])
 
     const getJsonRef = useRef(false)
     const [ searchParams, setSearchParams ] = useSearchParams()
-    const limitPage = 8
+    const currentPage = +(searchParams.get('page') || 1)
+    const limitPage = 12
 
+    const checkPagination = calcPagination(limitPage, goods.length, currentPage)
+    
     //https://653537a0c620ba9358ec45f8.mockapi.io/items
     useEffect(() => {
         setIsLoading(true)
@@ -33,7 +37,7 @@ export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
         .then((json) => {
             setGetJson(json)
             
-            let filter: Product[] = []
+            let filter: ProductType[] = []
             const query = searchParams.get('search') || ''
 
             if (query && query.length > 0) {
@@ -53,7 +57,7 @@ export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
             setItemsSearch(filterSearch || [])
         }
         getJsonRef.current = true
-    }, [ applyValueSearch, getJson ])
+    }, [ applyValueSearch, getJson, setItemsSearch ])
 
     return <>
         <div className='home'>
@@ -66,27 +70,33 @@ export const Home: React.FC<Props> = ({ applyValueSearch, setItemsSearch }) => {
                     <Sort params={searchParams} setParams={setSearchParams}></Sort>
                 </div>
             </div>
-            <div className='Products'>
+            <div className='Products _container'>
                 {
-                (isLoading) ? [...new Array(44)].map((isNull, index) => {
+                (isLoading) ? [...new Array(checkPagination.goodsCurrentPage)].map((isNull, index) => {
                     return <Sceleton key={index}></Sceleton>
                 })
-                : (goods.map((product: Product) => (
-                    <Products
+                : (goods.map((product: ProductType, index) => (
+                    index < checkPagination.amountPerPages && index >= checkPagination.amountPerPages - limitPage && 
+                    <Product
                         name = {product.name}
                         price = {product.id}
                         createdAt = {product.createdAt}
                         id = {product.id}
                         key = {product.id}
-                    ></Products>
+                    ></Product>
                 )))
                 }
             </div>
+
+            {goods.length > 0 && goods.length > limitPage && 
             <Pagination 
-                value={currentPage} 
-                onChangePage={(i: number) => setCurrentPage(i)} 
-                limit={limitPage} 
-                ammountGoods={goods.length}></Pagination>
+                //onChangePage={setCurrentPage} 
+                amountPages={checkPagination.amountPages}
+                params={searchParams} 
+                setParams={setSearchParams}
+            ></Pagination>}
+
+            <Footer></Footer>
         </div>
     </>
 }

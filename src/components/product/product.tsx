@@ -1,37 +1,36 @@
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../redux/slices/cartSlice'
-import './products.css'
-import { Product } from './types/productType'
+import { addToCart } from '../../redux/slices/cartSlice'
+import './product.css'
+import { ProductType } from '../types/productType'
 import { Link } from 'react-router-dom'
 
-export const Products: React.FC<Product> = ({ name, price, createdAt, id }) => {
+export const Product: React.FC<ProductType> = ({ name, price, createdAt, id }) => {
 
     const dispatch = useDispatch()
 
     return <Link to={`${id}`} className="Product">
-        <h2 className='Product__title'>
-            {name}
-        </h2>
-        <p className='Product__price' onClick={(event) => {
-            event. preventDefault()
-            return dispatch(addToCart({name, price, createdAt, id}))
-        }}
-            style={{
-                backgroundColor: "green",
-            }}
-        >
-            {`Price: ${price} `}
-            {price === 0 && '* '}
-        </p>
-        <p className='Product__description'>
-            {createdAt}
-        </p>
+        <div className="Product__image-block">
+        <img className='Product__image' src="https://assetmanagerpim-res.cloudinary.com/images/w_600/q_90/f38f975e8e6c46a386b9997da4896525_9366/IJ6929_23_hover_model.WebP" alt="product" />
+        </div>
+        <div className='Product__text'>
+            <span className='Product__price' onClick={(event) => {
+                event. preventDefault()
+                return dispatch(addToCart({name, price, createdAt, id}))
+            }}>
+                {`${price} грн`}
+            </span>
+            <h2 className='Product__name'>
+                {name}
+            </h2>
+        </div>
     </Link>
 }
 
 export const Sceleton = () => {
     return <div className="sceleton">
-        
+        <div className="sceleton__image-block"></div>
+        <div className="sceleton__price-block"></div>
+        <div className="sceleton__name-block"></div>
     </div>
 }
 

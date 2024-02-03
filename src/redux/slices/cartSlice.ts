@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Product } from '../../components/types/productType'
+import { ProductType } from '../../components/types/productType'
 import { getLocalStorage } from '../../utils/getLocalStorage'
 
 type typeAction = {
-    payload: Product
+    payload: ProductType
 }
 
 type typeInitialState = {
-    goods: Array<{ product: Product, amountProduct: number }>
+    goods: Array<{ product: ProductType, amountProduct: number }>
     repeat: boolean
 }
 

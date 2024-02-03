@@ -1,21 +1,19 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { Cart } from './pages/Cart'
-import { Home } from './pages/Home'
-import { Error } from './pages/Error/Error'
-import { Main } from './pages/Main'
-import { ProductPage } from './pages/Product'
-
+import { Cart } from './pages/CartPage'
+import { Home } from './pages/HomePage'
+import { Error } from './pages/ErrorPage/ErrorPage'
+import { Main } from './pages/MainPage'
+import { ProductPage } from './pages/ProductPage'
+import { ProductType } from './components/types/productType'
 import { Header } from './components/header/header'
-import { Product } from './components/types/productType'
-
 import './app.css'
 
 export const App = () => {
     const currentSearch = new URLSearchParams(window.location.search)
     const [ applySearchValue, setApplySearchValue ] = useState(currentSearch.get('search') || '')
-    const [listItemSearch, setListItemSearch] = useState<Product[]>([])
+    const [listItemSearch, setListItemSearch] = useState<ProductType[]>([])
 
     return <>
         <Header 
@@ -23,7 +21,7 @@ export const App = () => {
                 querySearch={listItemSearch}
         ></Header>
 
-        <div className="section">
+        <div className="wrapper">
             <Routes>
                 <Route path='/'>
                     <Route index element={<Main />}></Route>

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { increment, decrement, removeToCart } from '../redux/slices/cartSlice'
 import { Rootstate } from '../redux/store'
-import './Cart.css'
+import './pages.css'
 
 export const Cart = () => {
     const orders = useSelector((state: Rootstate) => state.cart.goods)

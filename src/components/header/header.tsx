@@ -1,13 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom'
 
-import { CartOnHeader } from '../cart'
+import { CartOnHeader } from '../cart/cartOnHeader'
 import { Search } from '../search'
-import { Product } from '../types/productType'
+import { ProductType } from '../types/productType'
 import './header.css'
 
 type Props = {
     applyOnSearchValue: (valueSearch: string) => void
-    querySearch: Product[]
+    querySearch: ProductType[]
 }
 
 export const Header: React.FC<Props> = ({ applyOnSearchValue, querySearch }) => {
@@ -15,8 +15,8 @@ export const Header: React.FC<Props> = ({ applyOnSearchValue, querySearch }) => 
 
     return <div className="header">
         <div className='header__container _container'>
-            <Link to='/home' className='logo'>Shop</Link>
-            <Search 
+            <Link to='/' className='logo'>Shop</Link>
+            <Search
                 applyOnSearchValue={applyOnSearchValue}
                 querySearch={querySearch}
                 params={searchParams}

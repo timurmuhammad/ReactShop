@@ -1,3 +1,5 @@
+import './pages.css'
+
 export const ProductPage = () => (
     <div className="product-page">
         <p>ezrhxdh</p>

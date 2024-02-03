@@ -1,7 +1,7 @@
 import { useState, useRef, memo } from 'react'
 
 import { sizeType } from '../types/sizeType'
-import { useClickOutside } from '../../utils/onClickOutside'
+import { useClickOutside } from '../../hooks/onClickOutside'
 import {actionSearhParams  } from '../../utils/actionSearhParams'
 import './sizeFilter.css'
 
@@ -29,8 +29,6 @@ export const SizeFilter: React.FC<Props> = memo(({ params, setParams }) => { // 
             setParams(newParams);
         }
     }
-
-    console.log('sizes')
 
     return <div className="size-filter" ref={sizeRef}>
         <div className={open ? "size-filter__inner _active" : "size-filter__inner"}>
